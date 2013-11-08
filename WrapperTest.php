@@ -30,11 +30,16 @@ class Wrapper
     private static function lengthOfFirstLine($paragraph, $columnNumber)
     {
         $lengthOfFirstLine = $columnNumber;
-        $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
+        $hypotheticalFirstLine = self::cutColumns($paragraph, $columnNumber);
         if (self::nextChar($paragraph, $lengthOfFirstLine) != ' ') {
             $lengthOfFirstLine = self::lastSpace($hypotheticalFirstLine);
         }
         return $lengthOfFirstLine;
+    }
+
+    private static function cutColumns($string, $length)
+    {
+        return substr($string, 0, $length);
     }
 
     private static function nextChar($string, $length)
