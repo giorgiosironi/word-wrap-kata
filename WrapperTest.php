@@ -12,27 +12,26 @@ class Wrapper
 
     private static function breakInLines($paragraph, $columnNumber)
     {
-        if (strlen($paragraph) > $columnNumber) {
-            $lengthOfFirstLine = $columnNumber;
-            $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
-            if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
-                $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
-                if ($firstSpacePosition !== false) {
-                    $lengthOfFirstLine = $firstSpacePosition + 1;
-                }
-            }
-            return array_merge(
-                [
-                    substr($paragraph, 0, $lengthOfFirstLine),
-                ],
-                self::breakInLines(
-                    substr($paragraph, $lengthOfFirstLine),
-                    $columnNumber
-                )
-            );
-        } else {
+        if (strlen($paragraph) <= $columnNumber) {
             return [$paragraph];
         }
+        $lengthOfFirstLine = $columnNumber;
+        $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
+        if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
+            $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
+            if ($firstSpacePosition !== false) {
+                $lengthOfFirstLine = $firstSpacePosition + 1;
+            }
+        }
+        return array_merge(
+            [
+                substr($paragraph, 0, $lengthOfFirstLine),
+            ],
+            self::breakInLines(
+                substr($paragraph, $lengthOfFirstLine),
+                $columnNumber
+            )
+        );
     }
 }
 
