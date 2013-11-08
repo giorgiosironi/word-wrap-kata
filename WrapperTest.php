@@ -4,28 +4,26 @@ class Wrapper
 {
     public static function wrap($paragraph, $columnNumber)
     {
-        if (strlen($paragraph) > $columnNumber) {
-            return implode(
-                "\n", 
-                self::breakInLines($paragraph, $columnNumber)
-            );
-        }
-        return $paragraph;
+        return implode(
+            "\n", 
+            self::breakInLines($paragraph, $columnNumber)
+        );
     }
 
     private static function breakInLines($paragraph, $columnNumber)
     {
-        if (strlen($paragraph) > 2 * $columnNumber) {
-            return [
-                substr($paragraph, 0, $columnNumber),
-                substr($paragraph, $columnNumber, $columnNumber),
-                substr($paragraph, $columnNumber * 2)
-            ];
+        if (strlen($paragraph) > $columnNumber) {
+            return array_merge(
+                [
+                    substr($paragraph, 0, $columnNumber),
+                ],
+                self::breakInLines(
+                    substr($paragraph, $columnNumber),
+                    $columnNumber
+                )
+            );
         } else {
-            return [
-                substr($paragraph, 0, $columnNumber),
-                substr($paragraph, $columnNumber)
-            ];
+            return [$paragraph];
         }
     }
 }
@@ -51,7 +49,6 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testAParagraphOfThreePerfectlyMatchingWordsIsWrappedInThreeLines()
     {
-        //$this->markTestIncomplete();
         $this->assertMultipleLines(
             "Hello ",
             "World ",
