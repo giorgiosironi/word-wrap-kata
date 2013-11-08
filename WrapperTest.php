@@ -132,6 +132,13 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
             "Cat",
             Wrapper::wrap("Hello Cat", 3)
         );
+
+        $this->assertMultipleLines(
+            "Super",
+            "calif",
+            "ragi",
+            Wrapper::wrap("Supercalifragi", 5)
+        );
     }
 
     public function testExploratory()
