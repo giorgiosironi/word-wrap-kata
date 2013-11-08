@@ -70,6 +70,16 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testMultipleShortWordsAreNotAProblem()
+    {
+        $this->assertMultipleLines(
+            "Hi my ",
+            "Kitty ",
+            "Cat !",
+            Wrapper::wrap("Hi my Kitty Cat !", 6)
+        );
+    }
+
     private function assertMultipleLines(/*$line, $line, ..., $arrayOfLines*/)
     {
         $arguments = func_get_args();
