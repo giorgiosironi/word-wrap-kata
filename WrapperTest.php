@@ -13,12 +13,13 @@ class Wrapper
     private static function breakInLines($paragraph, $columnNumber)
     {
         if (strlen($paragraph) > $columnNumber) {
+            $lengthOfFirstLine = $columnNumber;
             return array_merge(
                 [
-                    substr($paragraph, 0, $columnNumber),
+                    substr($paragraph, 0, $lengthOfFirstLine),
                 ],
                 self::breakInLines(
-                    substr($paragraph, $columnNumber),
+                    substr($paragraph, $lengthOfFirstLine),
                     $columnNumber
                 )
             );
