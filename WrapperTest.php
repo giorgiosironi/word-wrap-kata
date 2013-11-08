@@ -32,10 +32,7 @@ class Wrapper
         $lengthOfFirstLine = $columnNumber;
         $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
         if (self::nextChar($paragraph, $lengthOfFirstLine) != ' ') {
-            $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
-            if ($firstSpacePosition !== false) {
-                $lengthOfFirstLine = $firstSpacePosition + 1;
-            }
+            $lengthOfFirstLine = self::lastSpace($hypotheticalFirstLine);
         }
         return $lengthOfFirstLine;
     }
@@ -43,6 +40,16 @@ class Wrapper
     private static function nextChar($string, $length)
     {
         return substr($string, $length, 1);
+    }
+
+    private static function lastSpace($string)
+    {
+        $lengthOfFirstLine = strlen($string);
+        $firstSpacePosition = strrpos($string, ' ');
+        if ($firstSpacePosition !== false) {
+            $lengthOfFirstLine = $firstSpacePosition + 1;
+        }
+        return $lengthOfFirstLine;
     }
 }
 
