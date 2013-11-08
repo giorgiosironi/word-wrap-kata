@@ -31,13 +31,18 @@ class Wrapper
     {
         $lengthOfFirstLine = $columnNumber;
         $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
-        if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
+        if (self::nextChar($paragraph, $lengthOfFirstLine) != ' ') {
             $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
             if ($firstSpacePosition !== false) {
                 $lengthOfFirstLine = $firstSpacePosition + 1;
             }
         }
         return $lengthOfFirstLine;
+    }
+
+    private static function nextChar($string, $length)
+    {
+        return substr($string, $length, 1);
     }
 }
 
