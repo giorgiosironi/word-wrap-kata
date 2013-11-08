@@ -57,6 +57,17 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testWordsThatWouldBeCutAreSentOnTheNextLine()
+    {
+        $this->markTestIncomplete();
+        $this->assertMultipleLines(
+            "Hi ",
+            "Kitty ",
+            "Cat",
+            Wrapper::wrap("Hi Kitty Cat", 6)
+        );
+    }
+
     private function assertMultipleLines(/*$line, $line, ..., $arrayOfLines*/)
     {
         $arguments = func_get_args();
