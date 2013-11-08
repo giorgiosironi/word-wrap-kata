@@ -94,7 +94,6 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testAWordLongAsTheColumnNumberCanBeFitOnALine()
     {
-        $this->markTestSkipped();
         $this->assertMultipleLines(
             "Hello",
             " Cat",
