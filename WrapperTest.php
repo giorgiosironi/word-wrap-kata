@@ -15,14 +15,7 @@ class Wrapper
         if (strlen($paragraph) <= $columnNumber) {
             return [$paragraph];
         }
-        $lengthOfFirstLine = $columnNumber;
-        $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
-        if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
-            $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
-            if ($firstSpacePosition !== false) {
-                $lengthOfFirstLine = $firstSpacePosition + 1;
-            }
-        }
+        $lengthOfFirstLine = self::lengthOfFirstLine($paragraph, $columnNumber);
         return array_merge(
             [
                 substr($paragraph, 0, $lengthOfFirstLine),
@@ -32,6 +25,19 @@ class Wrapper
                 $columnNumber
             )
         );
+    }
+
+    private static function lengthOfFirstLine($paragraph, $columnNumber)
+    {
+        $lengthOfFirstLine = $columnNumber;
+        $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
+        if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
+            $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
+            if ($firstSpacePosition !== false) {
+                $lengthOfFirstLine = $firstSpacePosition + 1;
+            }
+        }
+        return $lengthOfFirstLine;
     }
 }
 
