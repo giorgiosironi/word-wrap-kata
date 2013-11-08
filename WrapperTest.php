@@ -15,7 +15,10 @@ class Wrapper
         if (strlen($paragraph) > $columnNumber) {
             $lengthOfFirstLine = $columnNumber;
             $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
-            $lengthOfFirstLine = strrpos($hypotheticalFirstLine, ' ') + 1;
+            if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
+                $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
+                $lengthOfFirstLine = $firstSpacePosition + 1;
+            }
             return array_merge(
                 [
                     substr($paragraph, 0, $lengthOfFirstLine),
@@ -77,6 +80,25 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
             "Kitty ",
             "Cat !",
             Wrapper::wrap("Hi my Kitty Cat !", 6)
+        );
+    }
+
+    public function testSpacesCanGoOnTheNextLineToFitThePreviousWord()
+    {
+        $this->assertMultipleLines(
+            "Hi my",
+            " Cat",
+            Wrapper::wrap("Hi my Cat", 5)
+        );
+    }
+
+    public function testAWordLongAsTheColumnNumberCanBeFitOnALine()
+    {
+        $this->markTestSkipped();
+        $this->assertMultipleLines(
+            "Hello",
+            " Cat",
+            Wrapper::wrap("Hello Cat", 5)
         );
     }
 
