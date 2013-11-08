@@ -17,10 +17,9 @@ class Wrapper
             $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
             if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
                 $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
-                if ($firstSpacePosition === false) {
-                    throw new Exception("Doing arithmetic with a false is a source of errors, for sure");
+                if ($firstSpacePosition !== false) {
+                    $lengthOfFirstLine = $firstSpacePosition + 1;
                 }
-                $lengthOfFirstLine = $firstSpacePosition + 1;
             }
             return array_merge(
                 [
