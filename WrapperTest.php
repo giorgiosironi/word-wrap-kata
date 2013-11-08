@@ -14,6 +14,8 @@ class Wrapper
     {
         if (strlen($paragraph) > $columnNumber) {
             $lengthOfFirstLine = $columnNumber;
+            $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
+            $lengthOfFirstLine = strrpos($hypotheticalFirstLine, ' ') + 1;
             return array_merge(
                 [
                     substr($paragraph, 0, $lengthOfFirstLine),
@@ -60,7 +62,6 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testWordsThatWouldBeCutAreSentOnTheNextLine()
     {
-        $this->markTestIncomplete();
         $this->assertMultipleLines(
             "Hi ",
             "Kitty ",
