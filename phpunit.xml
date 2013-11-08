@@ -1,0 +1,5 @@
+<phpunit colors="true">
+    <php>
+        <ini name="display_errors" value="1" />
+    </php>
+</phpunit>
