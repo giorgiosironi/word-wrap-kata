@@ -17,6 +17,9 @@ class Wrapper
             $hypotheticalFirstLine = substr($paragraph, 0, $lengthOfFirstLine);
             if (substr($paragraph, $lengthOfFirstLine, 1) != ' ') {
                 $firstSpacePosition = strrpos($hypotheticalFirstLine, ' ');
+                if ($firstSpacePosition === false) {
+                    throw new Exception("Doing arithmetic with a false is a source of errors, for sure");
+                }
                 $lengthOfFirstLine = $firstSpacePosition + 1;
             }
             return array_merge(
@@ -98,6 +101,16 @@ class WrapperTest extends \PHPUnit_Framework_TestCase
             "Hello",
             " Cat",
             Wrapper::wrap("Hello Cat", 5)
+        );
+    }
+
+    public function testAWordLongerThanTheColumnNumberMustBeBroken()
+    {
+        $this->assertMultipleLines(
+            "Hel",
+            "lo ",
+            "Cat",
+            Wrapper::wrap("Hello Cat", 3)
         );
     }
 
